@@ -1,0 +1,31 @@
+{
+  "name": "@emvicify/mongoose",
+  "version": "0.0.1",
+  "description": "Mongoose integration for emvicify",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lcnvdl/emvicify-mongoose.git"
+  },
+  "keywords": [
+    "emvicify",
+    "mfy",
+    "mongo",
+    "mongodb",
+    "nosql",
+    "mongoose"
+  ],
+  "author": "lcnvdl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lcnvdl/emvicify-mongoose/issues"
+  },
+  "homepage": "https://github.com/lcnvdl/emvicify-mongoose#readme",
+  "dependencies": {
+    "@emvicify/base": "0.0.5",
+    "mongoose": "^5.6.11"
+  }
+}
