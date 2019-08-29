@@ -1,6 +1,7 @@
 /**
  * @typedef {import("@emvicify/base/src/plugins/plugin")} Plugin
  * @typedef {import("@emvicify/base/src/plugins/plugin-type")} PluginType
+ * @typedef {import("commander")} Program
  */
 
 const { plugins } = require("@emvicify/base")
@@ -18,6 +19,7 @@ class MongoosePlugin extends Plugin {
         this.on("configureAppBeforeServe", args => this.configure(args));
         this.on("install", args => this.install(args));
         this.on("uninstall", args => this.uninstall(args));
+        this.on("commands", args => this.commands(args));
     }
 
     get pluginId() {
@@ -39,6 +41,16 @@ class MongoosePlugin extends Plugin {
     }
 
     uninstall() {
+    }
+
+    /**
+     * @param {Program} program Program
+     */
+    commands(program) {
+        program
+            .command("mongoose:version")
+            .alias("mongoose:v")
+            .action(() => require("./package.json").name + " " + require("./package.json").version);
     }
 }
 
