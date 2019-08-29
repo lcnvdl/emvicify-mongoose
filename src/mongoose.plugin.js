@@ -47,11 +47,14 @@ class MongoosePlugin extends Plugin {
      * @param {Program} program Program
      */
     commands(program) {
+
+        const { version } = require("./commands/commands");
+
         program
             .command("mongoose:version")
             .alias("mongoose:v")
             .description("Plugin version")
-            .action(() => require("../package.json").name + " " + require("../package.json").version);
+            .action(() => version());
     }
 }
 
