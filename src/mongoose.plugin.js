@@ -15,7 +15,13 @@ class MongoosePlugin extends Plugin {
     constructor() {
         super();
 
-        this.on("configureAppBeforeServe", args => this.install(args));
+        this.on("configureAppBeforeServe", args => this.configure(args));
+        this.on("install", args => this.install(args));
+        this.on("uninstall", args => this.uninstall(args));
+    }
+
+    get pluginId() {
+        return "com.emvicify.mongoose";
     }
 
     get pluginName() {
@@ -26,8 +32,13 @@ class MongoosePlugin extends Plugin {
         return PluginType.MongoExtension;
     }
 
-    install({ app, http, modules }) {
-        
+    configure({ app, http, modules }) {
+    }
+
+    install() {
+    }
+
+    uninstall() {
     }
 }
 

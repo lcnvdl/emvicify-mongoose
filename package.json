@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Mongoose integration for emvicify",
   "main": "index.js",
+  "mfy": "plugin",
   "scripts": {
     "test": "mocha"
   },
@@ -25,7 +26,7 @@
   },
   "homepage": "https://github.com/lcnvdl/emvicify-mongoose#readme",
   "dependencies": {
-    "@emvicify/base": "0.0.5",
+    "@emvicify/base": "0.0.6",
     "mongoose": "^5.6.11"
   }
 }
