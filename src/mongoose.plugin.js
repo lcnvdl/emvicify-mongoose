@@ -50,7 +50,8 @@ class MongoosePlugin extends Plugin {
         program
             .command("mongoose:version")
             .alias("mongoose:v")
-            .action(() => require("./package.json").name + " " + require("./package.json").version);
+            .description("Plugin version")
+            .action(() => require("../package.json").name + " " + require("../package.json").version);
     }
 }
 
