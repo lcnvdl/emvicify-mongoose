@@ -5,6 +5,8 @@
  */
 
 const { plugins } = require("@emvicify/base")
+const fs = require("fs");
+const path = require("path");
 
 /** @type {Plugin} */
 const Plugin = plugins.Plugin;
@@ -15,6 +17,9 @@ const PluginType = plugins.PluginType;
 class MongoosePlugin extends Plugin {
     constructor() {
         super();
+
+        this.settings = {};
+        this.mongoose = null;
 
         this.on("configureAppBeforeServe", args => this.configure(args));
         this.on("install", args => this.install(args));
@@ -34,13 +39,43 @@ class MongoosePlugin extends Plugin {
         return PluginType.MongoExtension;
     }
 
+    get defaults() {
+        return {
+            url: "mongodb://localhost:27017",
+            useNewUrlParser: true
+        };
+    }
+
     configure({ app, http, modules }) {
+        this.settings = Object.assign(this.defaults, modules.settings.mongoose);
+        this.mongoose = require("mongoose");
+        mongoose.connect(this.settings.url, { useNewUrlParser: this.settings.useNewUrlParser });
     }
 
-    install() {
+    install({ baseDirectory }) {
+        this._getAndEditSettings(baseDirectory, currentSettings => {
+            if (!currentSettings.mongoose) {
+                currentSettings.mongoose = this.defaults;
+                return currentSettings;
+            }
+            else {
+                return null;
+            }
+        });
     }
 
-    uninstall() {
+    uninstall({ baseDirectory, deleteSettings = false }) {
+        if (deleteSettings) {
+            this._getAndEditSettings(baseDirectory, currentSettings => {
+                if (!currentSettings.mongoose) {
+                    currentSettings.mongoose = this.defaults;
+                    return currentSettings;
+                }
+                else {
+                    return null;
+                }
+            });
+        }
     }
 
     /**
@@ -55,6 +90,22 @@ class MongoosePlugin extends Plugin {
             .alias("mongoose:v")
             .description("Plugin version")
             .action(() => version());
+    }
+
+    /**
+     * @param {string} baseDirectory Base directory
+     * @param {Function} action Function that receives the current settings (Object) and returns a new object if has changed, or null if it hasn't changed
+     */
+    _getAndEditSettings(baseDirectory, action) {
+        const settingsPath = path.join(baseDirectory, "settings.json");
+        let currentSettings = JSON.parse(fs.readFileSync(settingsPath, "utf-8"));
+
+        let newContent = action(currentSettings);
+
+        if (newContent) {
+            const content = JSON.stringify(newContent, null, 2);
+            fs.writeFileSync(settingsPath, content, "utf-8");
+        }
     }
 }
 

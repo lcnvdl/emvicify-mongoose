@@ -1,3 +1,4 @@
 module.exports = {
-    version: require("./version")
+    addModel: require("./add-model.cmd"),
+    version: require("./version.cmd")
 };
