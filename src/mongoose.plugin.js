@@ -24,7 +24,7 @@ class MongoosePlugin extends Plugin {
         this.on("configureAppBeforeServe", args => this.configure(args));
         this.on("install", args => this.install(args));
         this.on("uninstall", args => this.uninstall(args));
-        this.on("commands", args => this.commands(args));
+        this.on("commands", (program, tools) => this.commands(program, tools));
     }
 
     get pluginId() {
@@ -80,16 +80,24 @@ class MongoosePlugin extends Plugin {
 
     /**
      * @param {Program} program Program
+     * @param {*} tools Tools
      */
-    commands(program) {
+    commands(program, tools) {
 
-        const { version } = require("./commands/commands");
+        const { version, addModel } = require("./commands/commands");
+        const { consoleLog, inquirer, classes, methods } = tools;
 
         program
             .command("mongoose:version")
             .alias("mongoose:v")
             .description("Plugin version")
-            .action(() => version());
+            .action(() => version(consoleLog));
+
+        program.command("mongoose:add:model <name>")
+            .alias("mongoose:am")
+            .description("Adds a mongoose model")
+            .option("-e, --empty", "Cancels the prompt for filling the schema definitions.")
+            .action((name, cmdObj) => addModel(name, cmdObj, consoleLog, inquirer, classes, methods));
     }
 
     /**

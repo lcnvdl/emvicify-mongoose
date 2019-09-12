@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
 
-const __Name__Schema = new Schema({
+const __className__Schema = new Schema({
   //  __@Definitions__
 });
 
-const __Name__Model = model("__Name__", __Name__Schema);
+const __className__Model = model("__className__", __className__Schema);
 
-module.exports = __Name__Model;
+module.exports = __className__Model;

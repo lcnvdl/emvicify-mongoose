@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(consoleLog) {
     let package = require("../../package.json");
-    console.log(`${package.name} ${package.version}`);
+    consoleLog.info(`${package.name} ${package.version}`);
 };
