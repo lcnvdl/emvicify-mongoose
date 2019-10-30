@@ -51,7 +51,7 @@ class MongoosePlugin extends Plugin {
         this.mongoose = require("mongoose");
         this.mongoose.connect(this.settings.url, {
             useNewUrlParser: this.settings.useNewUrlParser,
-            useUnifiedTopology: this.settings.mongoose.useUnifiedTopology
+            useUnifiedTopology: this.settings.useUnifiedTopology
         });
     }
 
