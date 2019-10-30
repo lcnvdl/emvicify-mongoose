@@ -27,7 +27,7 @@
   "homepage": "https://github.com/lcnvdl/emvicify-mongoose#readme",
   "dependencies": {
     "@emvicify/base": "0.0.6",
-    "mongoose": "^5.6.11"
+    "mongoose": "^5.7.7"
   },
   "devDependencies": {
     "chai": "^4.2.0",
