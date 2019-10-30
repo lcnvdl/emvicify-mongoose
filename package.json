@@ -1,6 +1,6 @@
 {
   "name": "@emvicify/mongoose",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "Mongoose integration for emvicify",
   "main": "index.js",
   "mfy": "plugin",
