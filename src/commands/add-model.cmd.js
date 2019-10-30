@@ -50,13 +50,13 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
 
         async _getDefinitions() {
 
-            let definitions = null;
+            let definitions = [];
             let exit = false;
 
             do {
-                mainAnswer = await inquirer.prompt({
+                const { mainAnswer } = await inquirer.prompt({
                     type: "list",
-                    name: "mainMenu",
+                    name: "mainAnswer",
                     message: "Main Menu",
                     choices: [
                         { name: "Add a property", value: 1 },
@@ -72,7 +72,7 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
 
                     exit = true;
                 }
-                else if(mainAnswer === 1) {
+                else if (mainAnswer === 1) {
                     await this._addNewProperty(definitions);
                 }
             }
@@ -96,7 +96,7 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
 
                         return "Invalid model name. Build it using letters, numbers, and underscores. Example: \"MyEntity\"."
                     }
-                },{
+                }, {
                     type: "list",
                     name: "type",
                     message: "Property type",
