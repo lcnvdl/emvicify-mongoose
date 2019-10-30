@@ -35,7 +35,9 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
             if (!empty) {
                 let definitions = await this._getDefinitions();
                 if (definitions) {
-                    throw new Error("Not implemented");
+                    if (definitions.length > 0) {
+                        throw new Error("Not implemented");
+                    }
                 }
                 else {
                     consoleLog.error("Cancelled");
