@@ -1,3 +1,1 @@
-module.exports = {
-    plugin: require("./src/mongoose.plugin")
-};
+module.exports = require("./src/mongoose.plugin");

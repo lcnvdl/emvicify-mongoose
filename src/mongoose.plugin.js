@@ -49,7 +49,10 @@ class MongoosePlugin extends Plugin {
     configure({ app, http, modules }) {
         this.settings = Object.assign(this.defaults, modules.settings.mongoose);
         this.mongoose = require("mongoose");
-        mongoose.connect(this.settings.url, { useNewUrlParser: this.settings.useNewUrlParser });
+        this.mongoose.connect(this.settings.url, {
+            useNewUrlParser: this.settings.useNewUrlParser,
+            useUnifiedTopology: this.settings.mongoose.useUnifiedTopology
+        });
     }
 
     install({ baseDirectory }) {
