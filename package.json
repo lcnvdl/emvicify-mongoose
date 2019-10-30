@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "commander": "^3.0.0"
+    "colog": "^1.0.4",
+    "commander": "^3.0.1",
+    "inquirer": "^7.0.0"
   }
 }
