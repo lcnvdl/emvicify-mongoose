@@ -46,7 +46,7 @@ class MongoosePlugin extends Plugin {
         };
     }
 
-    configure({ app, http, modules }) {
+    configure({ modules }) {
         this.settings = Object.assign(this.defaults, modules.settings.mongoose);
         this.mongoose = require("mongoose");
         this.mongoose.connect(this.settings.url, {
@@ -86,7 +86,6 @@ class MongoosePlugin extends Plugin {
      * @param {*} tools Tools
      */
     commands(program, tools) {
-
         const { version, addModel } = require("./commands/commands");
         const { consoleLog, inquirer, classes, methods } = tools;
 
