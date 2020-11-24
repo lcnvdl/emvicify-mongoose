@@ -58,9 +58,13 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
             if (definitions.length > 0) {
                 let defContent = "";
 
+                let i = 0;
                 definitions.forEach(m => {
                     const { name, type } = m;
-                    defContent += `  ${name}: ${type},\n`
+                    if (i++ > 0) {
+                        defContent += ",\n";
+                    }
+                    defContent += `  ${name}: ${type}`
                 });
 
                 content = content.replace("  //  __@Definitions__", defContent);
