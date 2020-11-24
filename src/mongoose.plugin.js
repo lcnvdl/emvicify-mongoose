@@ -42,7 +42,8 @@ class MongoosePlugin extends Plugin {
     get defaults() {
         return {
             url: "mongodb://localhost:27017",
-            useNewUrlParser: true
+            useNewUrlParser: true,
+            useUnifiedTopology: true
         };
     }
 
