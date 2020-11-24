@@ -32,8 +32,10 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
 
             this.template.setData("className", className);
 
+            let definitions;
+
             if (!empty) {
-                let definitions = await this._getDefinitions();
+                definitions = await this._getDefinitions();
                 if (definitions) {
                     if (definitions.length > 0) {
                         present("Adding model...");
@@ -47,10 +49,14 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
                     return;
                 }
             }
+            else {
+                definitions = [];
+            }
 
             let content = this.template.render(true);
+
             if (definitions.length > 0) {
-                const defContent = "";
+                let defContent = "";
 
                 definitions.forEach(m => {
                     const { name, type } = m;
