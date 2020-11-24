@@ -36,7 +36,10 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
                 let definitions = await this._getDefinitions();
                 if (definitions) {
                     if (definitions.length > 0) {
-                        throw new Error("Not implemented");
+                        present("Adding model...");
+                    }
+                    else {
+                        present("Adding empty model...");
                     }
                 }
                 else {
@@ -45,13 +48,27 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
                 }
             }
 
-            fs.writeFileSync(finalPath, this.template.render(true), "utf-8");
+            let content = this.template.render(true);
+            if (definitions.length > 0) {
+                const defContent = "";
+
+                definitions.forEach(m => {
+                    const { name, type } = m;
+                    defContent += `  ${name}: ${type},\n`
+                });
+
+                content = content.replace("  //  __@Definitions__", defContent);
+            }
+            else {
+                content = content.replace("__@Definitions__", "Model schema")
+            }
+
+            fs.writeFileSync(finalPath, content, "utf-8");
 
             goodbye("Mongoose Model " + className + " created");
         }
 
         async _getDefinitions() {
-
             let definitions = [];
             let exit = false;
 
@@ -84,7 +101,6 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
         }
 
         async _addNewProperty(definitions) {
-
             const questions = [
                 {
                     type: "input",
@@ -106,8 +122,8 @@ module.exports = function (name, { empty = false }, consoleLog, inquirer, { File
                 }
             ];
 
-            const answers = await inquirer.prompt(questions);
-            console.log(answers);
+            const answer = await inquirer.prompt(questions);
+            definitions.push(answer);
         }
     }
 
